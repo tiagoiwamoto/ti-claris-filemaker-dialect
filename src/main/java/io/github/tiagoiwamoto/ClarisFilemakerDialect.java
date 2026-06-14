@@ -64,10 +64,12 @@ public class ClarisFilemakerDialect extends Dialect {
         return MINIMUM_VERSION;
     }
 
+    
+
     @Override
-    protected void registerColumnTypes(TypeContributions typeContributions, ServiceRegistry serviceRegistry) {
-        // delegate base registration first
-        super.registerColumnTypes(typeContributions, serviceRegistry);
+    public void contributeTypes(TypeContributions typeContributions, ServiceRegistry serviceRegistry) {
+        // keep default contributions; if you need custom JdbcType descriptors they can be added here
+        super.contributeTypes(typeContributions, serviceRegistry);
 
         final DdlTypeRegistry ddlTypeRegistry = typeContributions.getTypeConfiguration().getDdlTypeRegistry();
 
@@ -84,12 +86,6 @@ public class ClarisFilemakerDialect extends Dialect {
         ddlTypeRegistry.addDescriptor(new DdlTypeImpl(TIMESTAMP, "timestamp", this));
 
         ddlTypeRegistry.addDescriptor(new DdlTypeImpl(BLOB, "blob", this));
-    }
-
-    @Override
-    public void contributeTypes(TypeContributions typeContributions, ServiceRegistry serviceRegistry) {
-        // keep default contributions; if you need custom JdbcType descriptors they can be added here
-        super.contributeTypes(typeContributions, serviceRegistry);
 
         // Example: if you wanted to register a JdbcType replacement you would use:
         // final JdbcTypeRegistry jdbcTypeRegistry = typeContributions.getTypeConfiguration().getJdbcTypeRegistry();
@@ -166,14 +162,16 @@ public class ClarisFilemakerDialect extends Dialect {
     }
 
     // The legacy dialect indicated no ALTER TABLE support for FileMaker - keep conservative defaults
-    public boolean hasAlterTable() {
+    public boolean supportsAlterTable() {
         return false;
     }
 
+    @Override
     public boolean supportsColumnCheck() {
         return false;
     }
 
+    @Override
     public boolean supportsCascadeDelete() {
         return false;
     }
@@ -182,16 +180,8 @@ public class ClarisFilemakerDialect extends Dialect {
         return false;
     }
 
+    @Override
     public boolean canCreateSchema() {
-        return false;
-    }
-
-    public String getCurrentTimestampSelectString() {
-        // Return a reasonable default SQL expression for current timestamp
-        return "current_timestamp";
-    }
-
-    public boolean isCurrentTimestampSelectStringCallable() {
         return false;
     }
 
@@ -211,18 +201,22 @@ public class ClarisFilemakerDialect extends Dialect {
         return "";
     }
 
+    @Override
     public String getForUpdateString(String aliases) {
         return "";
     }
 
+    @Override
     public String getForUpdateNowaitString() {
         return "";
     }
 
+    @Override
     public String getForUpdateNowaitString(String aliases) {
         return "";
     }
 
+    @Override
     public String getForUpdateString(LockMode lockMode) {
         return "";
     }
