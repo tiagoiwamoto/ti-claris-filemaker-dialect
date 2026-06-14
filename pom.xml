@@ -11,8 +11,8 @@
     <description>Dialect and function contributor to integrate Claris FileMaker with Hibernate (packaged as a reusable dependency).</description>
 
     <properties>
-        <maven.compiler.source>25</maven.compiler.source>
-        <maven.compiler.target>25</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -25,8 +25,6 @@
             <groupId>io.github.tiagoiwamoto</groupId>
             <artifactId>fmjdbc</artifactId>
             <version>1.0.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/src/main/resources/fmjdbc.jar</systemPath>
         </dependency>
 
         <!-- Hibernate Core 7.1 -->
